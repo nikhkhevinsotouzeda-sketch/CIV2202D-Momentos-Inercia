@@ -1,0 +1,543 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Momentos de Inercia - CIV 2202D</title>
+
+    <link rel="stylesheet"
+          href="static/css/estilos.css">
+
+    <script
+        src="static/js/plano.js"
+        defer>
+    </script>
+</head>
+
+<body>
+
+    
+<header class="encabezado">
+
+    <div class="encabezado-superior">
+
+        <!-- Escudo de la FNI -->
+        <img
+            src="static/img/escudo_fni.png"
+            alt="Escudo FNI"
+            class="escudo"
+        >
+
+        <!-- Nombre de la institucion y programa -->
+        <div class="texto-encabezado">
+
+            <h2>FACULTAD NACIONAL DE INGENIERÍA</h2>
+
+            <h1>MOMENTOS DE INERCIA</h1>
+
+            <p>Resistencia de Materiales - CIV 2202D</p>
+
+            <h3>INGENIERÍA CIVIL</h3>
+
+<p class="autor-proyecto">
+    UNIV SOTO UZEDA NIKH KHEVIN
+</p>
+
+        </div>
+
+        <!-- Escudo de Ingenieria Civil -->
+        <img
+            src="static/img/escudo_civil.png"
+            alt="Escudo Ingeniería Civil"
+            class="escudo"
+        >
+
+    </div>
+
+</header>
+
+
+    <main class="contenedor-principal">
+
+        <aside class="herramientas">
+            
+<details class="herramientas-desplegables">
+    <summary>
+        Herramientas
+    </summary>
+
+    <div class="contenido-herramientas">
+
+            <p>Seleccionar figuras</p>
+            
+<!-- Introducir coordenadas -->
+
+<div class="panel-coordenadas">
+
+    
+<details class="coordenadas-desplegable">
+    <summary>Punto con coordenadas</summary>
+
+
+    <div class="campos-coordenadas">
+
+        <div>
+            <label for="coordX">Coordenada X</label>
+
+            <input
+                type="number"
+                id="coordX"
+                step="any"
+                placeholder="Ej: 4"
+            >
+        </div>
+
+        <div>
+            <label for="coordY">Coordenada Y</label>
+
+            <input
+                type="number"
+                id="coordY"
+                step="any"
+                placeholder="Ej: 3"
+            >
+        </div>
+
+    </div>
+
+    <button type="button" id="agregarPunto">
+        + Agregar punto
+    </button>
+
+</details>
+
+<button type="button" id="agregarPuntoMouse">
+    Agregar puntos con el mouse
+</button>
+
+<button type="button" id="cerrarFigura">
+    Cerrar figura
+</button>
+
+<!-- ADMINISTRACION DE FIGURAS -->
+
+<div class="panel-figuras">
+
+    <h3>Administración de figuras</h3>
+
+    <label for="tipoFigura">
+        Tipo de figura
+    </label>
+
+    <select id="tipoFigura">
+        <option value="1">
+            Positiva (+) - Agregar área
+        </option>
+
+        <option value="-1">
+            Negativa (-) - Restar área
+        </option>
+    </select>
+
+    <button type="button" id="guardarFigura">
+        Guardar figura
+    </button>
+
+    <h3>Figuras registradas</h3>
+
+    <div id="listaFiguras">
+        No hay figuras guardadas.
+    </div>
+
+</div>
+
+
+<!-- RESULTADO DEL CENTROIDE -->
+
+
+<!-- RESULTADOS DE INERCIA -->
+
+
+<!-- INERCIAS RESPECTO A EJES DE REFERENCIA -->
+
+
+<!-- LISTA DESPLEGABLE DE PUNTOS -->
+
+<details class="puntos-desplegable">
+
+    <summary>
+        Puntos registrados
+    </summary>
+
+    <div id="listaPuntos">
+        No hay puntos registrados.
+    </div>
+
+</details>
+
+</div>
+
+            
+<!-- =====================================
+     HERRAMIENTA PARA MOVER EJES
+===================================== -->
+
+<details class="ejes-desplegable">
+    <summary>Mover ejes</summary>
+
+
+<div class="panel-mover-ejes">
+
+<!-- MOVIMIENTO MANUAL DE EJES -->
+
+<button type="button" id="modoMoverOrigen">
+    Mover ejes manualmente
+</button>
+
+    <!-- MOVER A COORDENADAS -->
+    <details class="origen-coordenadas">
+
+        <summary>
+            Mover a coordenadas
+        </summary>
+
+        <div class="campos-origen">
+
+            <div>
+                <label for="origenX">
+                    Coordenada X
+                </label>
+
+                <input
+                    type="number"
+                    id="origenX"
+                    step="any"
+                    placeholder="Ej: 4"
+                >
+            </div>
+
+            <div>
+                <label for="origenY">
+                    Coordenada Y
+                </label>
+
+                <input
+                    type="number"
+                    id="origenY"
+                    step="any"
+                    placeholder="Ej: 3"
+                >
+            </div>
+
+        </div>
+
+        <button type="button" id="establecerOrigen">
+            Establecer origen
+        </button>
+
+    </details>
+
+    <!-- RESTABLECER EJES -->
+    <button type="button" id="restablecerOrigen">
+        Restablecer ejes (0,0)
+    </button>
+
+    <!-- INFORMACION DEL ORIGEN -->
+    <div class="informacion-origen">
+        <strong>Origen actual:</strong>
+        <span id="origenActual">
+            X = 0, Y = 0
+        </span>
+    </div>
+
+<!-- VISUALIZACION DE EJES CENTROIDALES -->
+
+<div class="control-ejes-centroidales">
+
+    <label for="mostrarEjesCentroidales">
+
+        <input
+            type="checkbox"
+            id="mostrarEjesCentroidales"
+            checked
+        >
+
+        Mostrar ejes centroidales globales
+
+    </label>
+
+</div>
+
+<!-- MOSTRAR U OCULTAR CENTROIDE GLOBAL -->
+
+<div class="control-ejes-centroidales">
+
+    <label for="mostrarCentroideGlobal">
+
+        <input
+            type="checkbox"
+            id="mostrarCentroideGlobal"
+            checked
+        >
+
+        Mostrar centroide global G
+
+    </label>
+
+</div>
+
+<!-- MOSTRAR EJES PRINCIPALES DE INERCIA -->
+
+<div class="control-ejes-centroidales">
+
+    <label for="mostrarEjesPrincipales">
+
+        <input
+            type="checkbox"
+            id="mostrarEjesPrincipales"
+            checked
+        >
+
+        Mostrar ejes principales de inercia
+
+    </label>
+
+</div>
+
+</div>
+
+</details>
+            <p>Acercar y alejar</p>
+            
+    </div>
+
+</details>
+
+        </aside>
+
+        <section class="zona-plano">
+            <h2>Plano cartesiano</h2>
+
+            <canvas id="plano"
+                    width="900"
+                    height="540">
+            </canvas>
+
+        </section>
+
+    </main>
+
+    <section class="resultados">
+        <h2>Resultados de los cálculos</h2>
+        <h3>Tabla 1: Áreas y centroides</h3>
+        <h3>Tabla 2: Momentos de inercia</h3>
+    
+<!-- TABLA DE PROPIEDADES GEOMETRICAS -->
+
+<div class="contenedor-tabla-geometrica">
+
+    <h3>Tabla de propiedades geométricas</h3>
+
+    <div class="tabla-desplazable">
+
+        <table id="tablaGeometrica">
+
+            <thead>
+                <tr>
+                    <th>Figura</th>
+                    <th>Signo</th>
+                    <th>Área (u²)</th>
+                    <th>x̄ (u)</th>
+                    <th>ȳ (u)</th>
+                    <th>I x̄ (u⁴)</th>
+                    <th>I ȳ (u⁴)</th>
+                    <th>I x̄ȳ (u⁴)</th>
+                    <th>Ix (u⁴)</th>
+                    <th>Iy (u⁴)</th>
+                    <th>Ixy (u⁴)</th>
+                </tr>
+            </thead>
+
+            <tbody id="cuerpoTablaGeometrica">
+                <tr>
+                    <td colspan="11">
+                        No hay figuras calculadas.
+                    </td>
+                </tr>
+            </tbody>
+
+<!-- TOTALES DE LA SECCION COMPUESTA -->
+
+
+
+<tfoot id="pieTablaGeometrica">
+    <tr class="fila-total">
+
+        <td><strong>SUMATORIA</strong></td>
+        <td>Σ</td>
+
+        <td id="areaTotalCompuesta">—</td>
+
+        <td id="sumaAxTabla">—</td>
+        <td id="sumaAyTabla">—</td>
+
+        <td id="sumaIxGTabla">—</td>
+        <td id="sumaIyGTabla">—</td>
+        <td id="sumaIxyGTabla">—</td>
+
+        <td id="totalIx">—</td>
+        <td id="totalIy">—</td>
+        <td id="totalIxy">—</td>
+
+    </tr>
+</tfoot>
+
+
+
+        </table>
+
+    </div>
+
+<!-- RESULTADOS GLOBALES DE LA SECCION -->
+
+<div class="panel-resultados-globales">
+
+    <h3>Propiedades globales de la sección</h3>
+
+    <div class="cuadricula-global">
+
+        <div class="resultado-global">
+            <span>x<sub>CG</sub></span>
+            <strong id="centroideTotalX">—</strong>
+            <small>u</small>
+        </div>
+
+        <div class="resultado-global">
+            <span>y<sub>CG</sub></span>
+            <strong id="centroideTotalY">—</strong>
+            <small>u</small>
+        </div>
+
+        <div class="resultado-global">
+            <span>I<sub>x̄</sub></span>
+            <strong id="totalIxG">—</strong>
+            <small>u⁴</small>
+        </div>
+
+        <div class="resultado-global">
+            <span>I<sub>ȳ</sub></span>
+            <strong id="totalIyG">—</strong>
+            <small>u⁴</small>
+        </div>
+
+        <div class="resultado-global">
+            <span>I<sub>x̄ȳ</sub></span>
+            <strong id="totalIxyG">—</strong>
+            <small>u⁴</small>
+        </div>
+
+<!-- PROMEDIO DE INERCIAS -->
+
+<div class="resultado-global">
+    <span>I<sub>p</sub></span>
+    <strong id="resultadoIp">—</strong>
+    <small>u⁴</small>
+</div>
+
+<!-- SEMIDIFERENCIA DE INERCIAS -->
+
+<div class="resultado-global">
+    <span>I<sub>d</sub></span>
+    <strong id="resultadoId">—</strong>
+    <small>u⁴</small>
+</div>
+
+<!-- RADIO DEL CIRCULO DE MOHR -->
+
+<div class="resultado-global">
+    <span>R</span>
+    <strong id="resultadoR">—</strong>
+    <small>u⁴</small>
+</div>
+
+<!-- =====================================
+     INERCIAS PRINCIPALES
+===================================== -->
+
+<!-- INERCIA PRINCIPAL MAXIMA -->
+
+<div class="resultado-global">
+
+    <span>I<sub>1</sub> - Máxima</span>
+
+    <strong id="resultadoI1">—</strong>
+
+    <small>u⁴</small>
+
+</div>
+
+<!-- INERCIA PRINCIPAL MINIMA -->
+
+<div class="resultado-global">
+
+    <span>I<sub>2</sub> - Mínima</span>
+
+    <strong id="resultadoI2">—</strong>
+
+    <small>u⁴</small>
+
+</div>
+
+<!-- =====================================
+     ANGULO DE LOS EJES PRINCIPALES
+===================================== -->
+
+<div class="resultado-global">
+
+    <span>θ<sub>p</sub> - Ángulo principal</span>
+
+    <strong id="resultadoThetaP">—</strong>
+
+    <small>grados (°)</small>
+
+</div>
+
+<!-- =====================================
+     CIRCULO DE MOHR DE INERCIAS
+===================================== -->
+
+<section class="seccion-circulo-mohr">
+
+    <h3>Círculo de Mohr de inercias</h3>
+
+    <p>
+        Representación gráfica de los momentos
+        y productos de inercia de la sección.
+    </p>
+
+    <div class="contenedor-circulo-mohr">
+
+        <canvas
+            id="circuloMohr"
+            width="900"
+            height="550">
+        </canvas>
+
+    </div>
+
+</section>
+
+    </div>
+
+</div>
+
+</div>
+
+    </section>
+
+</body>
+</html>
