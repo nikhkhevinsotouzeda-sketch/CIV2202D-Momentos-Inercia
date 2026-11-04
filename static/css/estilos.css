@@ -1496,3 +1496,33 @@ summary::after {
         letter-spacing: 0.4px;
     }
 }
+/* ALINEACIÓN DE LOS ESCUDOS DEL ENCABEZADO */
+
+.encabezado-superior {
+    position: relative;
+    display: block !important;
+    min-height: 190px;
+}
+
+.texto-encabezado {
+    width: 100%;
+    text-align: center;
+}
+
+.encabezado-superior > .escudo:first-child {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 80px;
+    height: 80px;
+}
+
+.encabezado-superior > .escudo:last-child {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 80px;
+    height: 80px;
+}
